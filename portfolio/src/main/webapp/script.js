@@ -30,3 +30,10 @@ function addRandomGreeting() {
   greetingContainer.innerText = greeting;
 }
 
+function loadIntro(){
+    document.getElementById("play_button").style.visibility = "hidden"
+    const info = "Hi I'm Cynthia. I'm a sophomore studying Computer Science and Statistics at Cornell University. I like photography and playing tennis and traveling. I was born and raised in New York and spend most of my time taking pictures, hanging out with my friends, or learning new things. I like to read and do my best to keep reading even when life gets hectic." ;
+    document.getElementById('introTitle').style.display = "block";
+    
+}
+
