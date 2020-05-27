@@ -32,8 +32,26 @@ function addRandomGreeting() {
 
 function loadIntro(){
     document.getElementById("play_button").style.visibility = "hidden"
-    const info = "Hi I'm Cynthia. I'm a sophomore studying Computer Science and Statistics at Cornell University. I like photography and playing tennis and traveling. I was born and raised in New York and spend most of my time taking pictures, hanging out with my friends, or learning new things. I like to read and do my best to keep reading even when life gets hectic." ;
+    //const info = "Hi I'm Cynthia. I'm a sophomore studying Computer Science and Statistics at Cornell University. I like photography and playing tennis and traveling. I was born and raised in New York and spend most of my time taking pictures, hanging out with my friends, or learning new things. I like to read and do my best to keep reading even when life gets hectic." ;
     document.getElementById('introTitle').style.display = "block";
+    document.getElementById('introInfo').style.display = "block";
+    document.getElementById('profesh1').style.display = "block";
+    document.getElementById('profesh2').style.display = "block";
+    document.getElementById('profesh3').style.display = "block";
+}
+
+
+function getPhotos(){
+    const elts = ["introTitle", "introInfo", "profesh1", "profesh2", "profesh3"];
+    const len = elts.length;
+    for(var i =0; i<len; i++){
+        document.getElementById(elts[i]).style.visibility = "hidden";
+    }
+    var pics_len = document.getElementsByClassName("pics").length
+    var pics = document.getElementsByClassName("pics");
+    for(var i =0; i<pics_len; i++){
+        (pics[i]).style.display = "block";
+    }
     
 }
 
