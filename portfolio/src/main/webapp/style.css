@@ -17,20 +17,22 @@ p {
 body {
   background-color: floralwhite;
   background-image: url("images/bg2.JPG");
-  background-size: 1680px;
+  background-size: cover
   
   
 }
 
 #play_button {
-    position: absolute;
-  left: 100px;
-  top: 150px;
-  width: 800px;
-  height: 499px;
-  border: none;
-  background-color:none;
-  font-size: 48px;
+   
+  
+  position: absolute;
+  left: 50%;
+  margin-left: -50px;
+  top: 50%;
+  margin-top: -50px;
+  background-color:white;
+  font-size: 30px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .btn {
@@ -50,3 +52,11 @@ body {
 .warning {color: orange;}
 .danger {color: red;}
 .default {color: black;}
+
+.bgImage{
+    padding: 0;
+    display: block;
+    margin: 0 auto;
+    max-height: 100%;
+    max-width: 100%;
+}
