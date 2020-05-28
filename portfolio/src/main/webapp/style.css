@@ -57,6 +57,12 @@ body {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+img{
+    max-width: 20%;
+    height:auto;
+    padding: 5px
+}
+
 
 .btn {
   border: none;
