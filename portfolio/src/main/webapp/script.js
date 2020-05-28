@@ -38,6 +38,17 @@ function loadIntro(){
     document.getElementById('profesh1').style.display = "block";
     document.getElementById('profesh2').style.display = "block";
     document.getElementById('profesh3').style.display = "block";
+    var pics_len = document.getElementsByClassName("pics").length
+    var pics = document.getElementsByClassName("pics");
+    for(var i =0; i<pics_len; i++){
+        if(i!=1){
+        (pics[i]).style.display = "none";
+        }
+    }
+    pics[1].style.visibility="hidden";
+    document.getElementById('profesh4').style.display = "none";
+
+
 }
 
 
@@ -45,13 +56,19 @@ function getPhotos(){
     const elts = ["introTitle", "introInfo", "profesh1", "profesh2", "profesh3"];
     const len = elts.length;
     for(var i =0; i<len; i++){
-        document.getElementById(elts[i]).style.visibility = "hidden";
+        document.getElementById(elts[i]).style.display = "none";
     }
     var pics_len = document.getElementsByClassName("pics").length
     var pics = document.getElementsByClassName("pics");
     for(var i =0; i<pics_len; i++){
+        if(i!=1){
         (pics[i]).style.display = "block";
+        }
     }
-    
+    pics[1].style.visibility="visible";
+   // document.getElementById("back").style.display="block";
+
+    document.getElementById('profesh4').style.display = "block";
+
 }
 

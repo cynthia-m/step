@@ -57,6 +57,7 @@ body {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+
 .btn {
   border: none;
   background-color: inherit;
@@ -86,8 +87,4 @@ body {
 .profesh {
     
   margin-left: 50%;
-}
-
-#pics {
-    
 }
