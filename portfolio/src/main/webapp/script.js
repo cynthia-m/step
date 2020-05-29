@@ -41,11 +41,11 @@ function loadIntro(){
     var pics_len = document.getElementsByClassName("pics").length
     var pics = document.getElementsByClassName("pics");
     for(var i =0; i<pics_len; i++){
-        if(i!=1){
+        
         (pics[i]).style.display = "none";
-        }
+        
     }
-    pics[1].style.visibility="hidden";
+   
     document.getElementById('profesh4').style.display = "none";
 
 
@@ -61,11 +61,11 @@ function getPhotos(){
     var pics_len = document.getElementsByClassName("pics").length
     var pics = document.getElementsByClassName("pics");
     for(var i =0; i<pics_len; i++){
-        if(i!=1){
+        
         (pics[i]).style.display = "block";
-        }
+        
     }
-    pics[1].style.visibility="visible";
+    
    // document.getElementById("back").style.display="block";
 
     document.getElementById('profesh4').style.display = "block";
