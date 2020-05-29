@@ -38,6 +38,8 @@ function loadIntro(){
     document.getElementById('profesh1').style.display = "block";
     document.getElementById('profesh2').style.display = "block";
     document.getElementById('profesh3').style.display = "block";
+        //document.getElementById('profesh5').style.display = "block";
+
     var pics_len = document.getElementsByClassName("pics").length
     var pics = document.getElementsByClassName("pics");
     for(var i =0; i<pics_len; i++){
