@@ -16,7 +16,7 @@
  * Adds a random greeting to the page.
  */
 
-
+var j = 1;
 
 function addRandomGreeting() {
   const greetings =
@@ -49,28 +49,89 @@ function loadIntro(){
     }
    
     document.getElementById('profesh4').style.display = "none";
+    document.getElementById('next').style.display = "none";
+    document.getElementById('photo_intro').style.display = "none";
+    document.getElementById("prev").style.display="none";
 
+	//j=0;
 
 }
 
 
-function getPhotos(){
+
+function getPhotos_next(){
+    j++;
     const elts = ["introTitle", "introInfo", "profesh1", "profesh2", "profesh3"];
     const len = elts.length;
     for(var i =0; i<len; i++){
         document.getElementById(elts[i]).style.display = "none";
     }
+    document.getElementById('photo_intro').style.display = "block";
+    
     var pics_len = document.getElementsByClassName("pics").length
     var pics = document.getElementsByClassName("pics");
     for(var i =0; i<pics_len; i++){
-        
-        (pics[i]).style.display = "block";
-        
+        if(i==j%6){
+            (pics[j%6]).style.display = "block";
+        }
+        else{
+            (pics[i]).style.display = "none";
+        }
     }
     
+    
    // document.getElementById("back").style.display="block";
-
+  if(j>0){
+    	document.getElementById("prev").style.display="block";
+    }
+    else{
+        document.getElementById("prev").style.display="none";
+    }
+	if(j<5){
+		document.getElementById('next').style.display = "block";
+    }
+    else{
+        document.getElementById("next").style.display="none";
+    }
     document.getElementById('profesh4').style.display = "block";
+ 	document.getElementById('test').innerText=j;
+}
 
+
+function getPhotos_prev(){
+    j--;
+    const elts = ["introTitle", "introInfo", "profesh1", "profesh2", "profesh3"];
+    const len = elts.length;
+    for(var i =0; i<len; i++){
+        document.getElementById(elts[i]).style.display = "none";
+    }
+    document.getElementById('photo_intro').style.display = "block";
+    
+    var pics_len = document.getElementsByClassName("pics").length
+    var pics = document.getElementsByClassName("pics");
+    for(var i =0; i<pics_len; i++){
+        if(i==j%6){
+            (pics[j%6]).style.display = "block";
+        }
+        else{
+            (pics[i]).style.display = "none";
+        }
+    }
+    
+    if(j>0){
+    	document.getElementById("prev").style.display="block";
+    }
+    else{
+        document.getElementById("prev").style.display="none";
+    }
+	if(j<5){
+		document.getElementById('next').style.display = "block";
+    }
+    else{
+        document.getElementById("next").style.display="none";
+    }
+    
+    document.getElementById('profesh4').style.display = "block";
+ 	document.getElementById('test').innerText=j;
 }
 
