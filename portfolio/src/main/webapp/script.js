@@ -94,7 +94,7 @@ function getPhotos_next(){
         document.getElementById("next").style.display="none";
     }
     document.getElementById('profesh4').style.display = "block";
- 	document.getElementById('test').innerText=j;
+ 	// document.getElementById('test').innerText=j;
 }
 
 
@@ -132,6 +132,6 @@ function getPhotos_prev(){
     }
     
     document.getElementById('profesh4').style.display = "block";
- 	document.getElementById('test').innerText=j;
+ 	// document.getElementById('test').innerText=j;
 }
 
