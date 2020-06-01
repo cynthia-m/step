@@ -56,20 +56,20 @@ body {
 
 #prev {
   position: absolute;
-  left: 500px;
-  margin-left: -50px;
-  top: 50%;
-  margin-top: -50px;
+  left: 30%;
+  /* margin-left: -50px; */
+  top: 40%;
+  /* margin-top: -50px; */
   background-color:white;
   font-size: 30px;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 #next {
   position: absolute;
-  left: 1050px;
-  margin-left: -50px;
-  top: 50%;
-  margin-top: -50px;
+  right: 30%;
+  /* margin-left: -50px; */
+  top: 40%;
+  /* margin-top: -s50px; */
   background-color:white;
   font-size: 30px;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
