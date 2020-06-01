@@ -16,7 +16,7 @@
  * Adds a random greeting to the page.
  */
 
-var j = 1;
+var j = 0;
 
 function addRandomGreeting() {
   const greetings =
@@ -34,9 +34,9 @@ function loadIntro(){
     document.getElementById("play_button").style.visibility = "hidden"
     document.getElementById('introTitle').style.display = "block";
     document.getElementById('introInfo').style.display = "block";
-    document.getElementById('profesh1').style.display = "block";
-    document.getElementById('profesh2').style.display = "block";
-    document.getElementById('profesh3').style.display = "block";
+    document.getElementById('github').style.display = "block";
+    document.getElementById('linkedin').style.display = "block";
+    document.getElementById('photo_portfolio').style.display = "block";
 
     var pics_len = document.getElementsByClassName("pics").length
     var pics = document.getElementsByClassName("pics");
@@ -53,48 +53,14 @@ function loadIntro(){
 
 }
 
-
-
-function getPhotos_next(){
-    j++;
-    const elts = ["introTitle", "introInfo", "profesh1", "profesh2", "profesh3"];
-    const len = elts.length;
-    for(var i =0; i<len; i++){
-        document.getElementById(elts[i]).style.display = "none";
+function getPhotos(i){
+    if(i==1){
+        j++;
     }
-    document.getElementById('photo_intro').style.display = "block";
-    
-    var pics_len = document.getElementsByClassName("pics").length
-    var pics = document.getElementsByClassName("pics");
-    for(var i =0; i<pics_len; i++){
-        if(i==j%6){
-            (pics[j%6]).style.display = "block";
-        }
-        else{
-            (pics[i]).style.display = "none";
-        }
+    else if (i==-1){
+        j--;
     }
-    
-    
-  if(j>0){
-    	document.getElementById("prev").style.display="block";
-    }
-    else{
-        document.getElementById("prev").style.display="none";
-    }
-	if(j<pics_len-1){
-		document.getElementById('next').style.display = "block";
-    }
-    else{
-        document.getElementById("next").style.display="none";
-    }
-    document.getElementById('profesh4').style.display = "block";
-}
-
-
-function getPhotos_prev(){
-    j--;
-    const elts = ["introTitle", "introInfo", "profesh1", "profesh2", "profesh3"];
+	const elts = ["introTitle", "introInfo", "github", "linkedin", "photo_portfolio"];
     const len = elts.length;
     for(var i =0; i<len; i++){
         document.getElementById(elts[i]).style.display = "none";

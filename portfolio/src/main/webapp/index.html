@@ -21,21 +21,21 @@
           when life gets hectic. 
       </p>
 
-      <button id="profesh1" class="profesh" onclick=" window.open('https://github.com/cynthia-m','_blank')" style="display:none">Github</button>
-      <button id="profesh2" class = "profesh" onclick=" window.open('https://www.linkedin.com/in/cma/','_blank')" style="display:none">LinkedIn</button>
-      <button id="profesh3" class = "profesh" onclick="getPhotos_prev()" style ="display:none">Photography</button>
+      <button id="github" class="profesh" onclick=" window.open('https://github.com/cynthia-m','_blank')" style="display:none">Github</button>
+      <button id="linkedin" class = "profesh" onclick=" window.open('https://www.linkedin.com/in/cma/','_blank')" style="display:none">LinkedIn</button>
+      <button id="photo_portfolio" class = "profesh" onclick="getPhotos(0)" style ="display:none">Photography</button>
    
     <p id = "photo_intro" style="display:none"> As I mentioned, I like photography! I like to travel and like photography for capturing memories of
           all the beautiul places I've visited. </p>
           <!-- should not be categorized as pics -->
-          <button id="prev" class = "next" onclick="getPhotos_prev()" style ="display:none">Prev</button>
+          <button id="prev" class = "next" onclick="getPhotos(-1)" style ="display:none">Prev</button>
       <img class = "pics" style="display:none" src = "/images/yellow-roses.jpg" alt="Yellow Roses in Portland, OR, USA" >
       <img class = "pics" style="display:none" src = "/images/IMG_1204.jpg" alt="Sunrise in Canada" >
       <img class = "pics" style="display:none" src = "/images/IMG_0610.JPG" alt="Portland, OR, USA Lan Su Garden">
       <img class = "pics" style="display:none" src = "/images/Copy of IMG_0468.JPG" alt="Musee d'Orsay Clock" >
       <img class = "pics" style="display:none" src = "/images/IMG_6895.jpg" alt="Lilies in Beijing, CN" >
       <img class = "pics" style="display:none" src = "/images/IMG_9722 (1).JPG" alt="Pagoda in Beijing, CN" >
-     <button id="next" class = "next" onclick="getPhotos_next()" style ="display:none">Next</button>
+     <button id="next" class = "next" onclick="getPhotos(1)" style ="display:none">Next</button>
       <button id="profesh4" class = "profesh" onclick="loadIntro()" style ="display:none">Back</button>
       <!-- <button id="test" style ="display:block">test</button> -->
     
