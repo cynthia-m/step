@@ -32,13 +32,11 @@ function addRandomGreeting() {
 
 function loadIntro(){
     document.getElementById("play_button").style.visibility = "hidden"
-    //const info = "Hi I'm Cynthia. I'm a sophomore studying Computer Science and Statistics at Cornell University. I like photography and playing tennis and traveling. I was born and raised in New York and spend most of my time taking pictures, hanging out with my friends, or learning new things. I like to read and do my best to keep reading even when life gets hectic." ;
     document.getElementById('introTitle').style.display = "block";
     document.getElementById('introInfo').style.display = "block";
     document.getElementById('profesh1').style.display = "block";
     document.getElementById('profesh2').style.display = "block";
     document.getElementById('profesh3').style.display = "block";
-        //document.getElementById('profesh5').style.display = "block";
 
     var pics_len = document.getElementsByClassName("pics").length
     var pics = document.getElementsByClassName("pics");
@@ -52,8 +50,6 @@ function loadIntro(){
     document.getElementById('next').style.display = "none";
     document.getElementById('photo_intro').style.display = "none";
     document.getElementById("prev").style.display="none";
-
-	//j=0;
 
 }
 
@@ -80,21 +76,19 @@ function getPhotos_next(){
     }
     
     
-   // document.getElementById("back").style.display="block";
   if(j>0){
     	document.getElementById("prev").style.display="block";
     }
     else{
         document.getElementById("prev").style.display="none";
     }
-	if(j<5){
+	if(j<pics_len-1){
 		document.getElementById('next').style.display = "block";
     }
     else{
         document.getElementById("next").style.display="none";
     }
     document.getElementById('profesh4').style.display = "block";
- 	// document.getElementById('test').innerText=j;
 }
 
 
@@ -124,7 +118,7 @@ function getPhotos_prev(){
     else{
         document.getElementById("prev").style.display="none";
     }
-	if(j<5){
+	if(j<pics_len-1){
 		document.getElementById('next').style.display = "block";
     }
     else{
@@ -132,6 +126,5 @@ function getPhotos_prev(){
     }
     
     document.getElementById('profesh4').style.display = "block";
- 	// document.getElementById('test').innerText=j;
 }
 

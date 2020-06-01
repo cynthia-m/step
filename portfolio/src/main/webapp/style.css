@@ -16,7 +16,6 @@ h1{
   
   color:rgba(43,142,190);
   text-align: center;
-  /* background-color: rgba(255, 255, 255, 0.7);  */
   text-shadow: 0 0 18px rgb(255,255,255);
   font-family: 'Courier New', Courier, monospace
 }
@@ -39,7 +38,7 @@ body {
   background-color: floralwhite;
   background-image: url("images/bg2.JPG");
   background-size: cover
-  /* not right, still too big */
+  
   
   
 }
