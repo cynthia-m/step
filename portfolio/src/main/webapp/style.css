@@ -57,19 +57,16 @@ body {
 #prev {
   position: absolute;
   left: 30%;
-  /* margin-left: -50px; */
-  top: 40%;
-  /* margin-top: -50px; */
+  top: 35%;
   background-color:white;
   font-size: 30px;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+
 #next {
   position: absolute;
   right: 30%;
-  /* margin-left: -50px; */
-  top: 40%;
-  /* margin-top: -s50px; */
+  top:35%;
   background-color:white;
   font-size: 30px;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -95,7 +92,7 @@ img{
     max-width: 100%;
 }
 
-.profesh {
+.intro {
     
   margin-left: auto;
   margin-right:auto;

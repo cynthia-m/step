@@ -14,17 +14,19 @@
       <button id="play_button" onclick="loadIntro() ">Cynthia Ma</button>
       
 
-    <h1 id="introTitle" style="display:none">Cynthia's Portfolio</h1>
-      <p  id="introInfo" style="display:none">Hi I'm Cynthia. I'm a sophomore studying Computer Science and Statistics at Cornell University. 
+    <h1 id="introTitle" class= "intro" style="display:none">Cynthia's Portfolio</h1>
+      <p  id="introInfo" class= "intro" style="display:none">Hi I'm Cynthia. I'm a sophomore studying Computer Science and Statistics at Cornell University. 
           I like photography and playing tennis and traveling. I was born and raised in New York and spend most of my time 
           taking pictures, hanging out with my friends, or learning new things. I like to read and do my best to keep reading even 
           when life gets hectic. 
       </p>
 
-      <button id="github" class="profesh" onclick=" window.open('https://github.com/cynthia-m','_blank')" style="display:none">Github</button>
-      <button id="linkedin" class = "profesh" onclick=" window.open('https://www.linkedin.com/in/cma/','_blank')" style="display:none">LinkedIn</button>
-      <button id="photo_portfolio" class = "profesh" onclick="getPhotos(0)" style ="display:none">Photography</button>
-   
+      <button id="github" class="intro" onclick=" window.open('https://github.com/cynthia-m','_blank')" style="display:none">Github</button>
+      <button id="linkedin" class = "intro" onclick=" window.open('https://www.linkedin.com/in/cma/','_blank')" style="display:none">LinkedIn</button>
+      <button id="photo_portfolio" class = "intro" onclick="getPhotos(0)" style ="display:none">Photography</button>
+   		<button id = "getHelloName" class = "intro" onclick = "getHelloName()" style = "display:none"> Hello! </button>
+    
+    
     <p id = "photo_intro" style="display:none"> As I mentioned, I like photography! I like to travel and like photography for capturing memories of
           all the beautiul places I've visited. </p>
           <!-- should not be categorized as pics -->
@@ -36,8 +38,8 @@
       <img class = "pics" style="display:none" src = "/images/IMG_6895.jpg" alt="Lilies in Beijing, CN" >
       <img class = "pics" style="display:none" src = "/images/IMG_9722 (1).JPG" alt="Pagoda in Beijing, CN" >
      <button id="next" class = "next" onclick="getPhotos(1)" style ="display:none">Next</button>
-      <button id="profesh4" class = "profesh" onclick="loadIntro()" style ="display:none">Back</button>
-      <!-- <button id="test" style ="display:block">test</button> -->
+      <button id="back" class = "intro" onclick="loadIntro()" style ="display:none">Back</button>
+      <button id="test" style ="display:none>test</button>
     
 
   </body>

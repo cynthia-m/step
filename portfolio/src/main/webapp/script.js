@@ -31,22 +31,24 @@ function addRandomGreeting() {
 }
 
 function loadIntro(){
-    document.getElementById("play_button").style.visibility = "hidden"
-    document.getElementById('introTitle').style.display = "block";
-    document.getElementById('introInfo').style.display = "block";
-    document.getElementById('github').style.display = "block";
-    document.getElementById('linkedin').style.display = "block";
-    document.getElementById('photo_portfolio').style.display = "block";
+    document.getElementById("play_button").style.visibility = "hidden";
 
-    var pics_len = document.getElementsByClassName("pics").length
-    var pics = document.getElementsByClassName("pics");
+    const intro_len = document.getElementsByClassName("intro").length;
+    const intro = document.getElementsByClassName("intro");
+    for(var i =0; i<intro_len; i++){
+        
+        (intro[i]).style.display = "block";
+        
+    }
+    const pics_len = document.getElementsByClassName("pics").length;
+    const pics = document.getElementsByClassName("pics");
     for(var i =0; i<pics_len; i++){
         
         (pics[i]).style.display = "none";
         
     }
    
-    document.getElementById('profesh4').style.display = "none";
+    document.getElementById('back').style.display = "none";
     document.getElementById('next').style.display = "none";
     document.getElementById('photo_intro').style.display = "none";
     document.getElementById("prev").style.display="none";
@@ -60,7 +62,7 @@ function getPhotos(i){
     else if (i==-1){
         j--;
     }
-	const elts = ["introTitle", "introInfo", "github", "linkedin", "photo_portfolio"];
+	const elts = ["introTitle", "introInfo", "github", "linkedin", "photo_portfolio", "getHelloName"];
     const len = elts.length;
     for(var i =0; i<len; i++){
         document.getElementById(elts[i]).style.display = "none";
@@ -77,7 +79,7 @@ function getPhotos(i){
             (pics[i]).style.display = "none";
         }
     }
-    
+    //document.getElementById("test").innerText = j;
     if(j>0){
     	document.getElementById("prev").style.display="block";
     }
@@ -91,6 +93,15 @@ function getPhotos(i){
         document.getElementById("next").style.display="none";
     }
     
-    document.getElementById('profesh4').style.display = "block";
+    document.getElementById('back').style.display = "block";
 }
 
+
+function getHelloName(){
+    const responsePromise = fetch('/data');
+
+  
+  responsePromise.then(handleResponse);
+
+
+}
