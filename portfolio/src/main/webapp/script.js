@@ -16,92 +16,70 @@
  * Adds a random greeting to the page.
  */
 
-var j = 0;
-
-function addRandomGreeting() {
-  const greetings =
-      ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
-
-  // Pick a random greeting.
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
-
-  // Add it to the page.
-  const greetingContainer = document.getElementById('greeting-container');
-  greetingContainer.innerText = greeting;
-}
+var absolute_index = 0;
+//absolute_index is the index of the picture
 
 function loadIntro(){
-    document.getElementById("play_button").style.visibility = "hidden";
+    window.location =("/intro.html");
+}
 
-    const intro_len = document.getElementsByClassName("intro").length;
-    const intro = document.getElementsByClassName("intro");
-    for(var i =0; i<intro_len; i++){
-        
-        (intro[i]).style.display = "block";
-        
+function getPhotos_pre(){
+    window.location=("./photography.html");
+    getPhotos(0);
+}
+
+function getPhotos(move_dir){
+  if(move_dir==1){
+    //move to next image
+    absolute_index++;
+  }
+  else if (move_dir==-1){
+    //move to prev image
+    absolute_index--;
+  }
+    
+  var pics_len = document.getElementsByClassName("pics").length
+  var pics = document.getElementsByClassName("pics");
+  for(var pic_index =0; i<pics_len; i++){
+    if(curr_index==absolute_index%6){
+      //curr_index is the index of the image in the array
+      (pics[curr_index]).style.display = "block";
     }
-    const pics_len = document.getElementsByClassName("pics").length;
-    const pics = document.getElementsByClassName("pics");
-    for(var i =0; i<pics_len; i++){
-        
-        (pics[i]).style.display = "none";
-        
+    else{
+      (pics[curr_index]).style.display = "none";
     }
-   
-    document.getElementById('back').style.display = "none";
-    document.getElementById('next').style.display = "none";
-    document.getElementById('photo_intro').style.display = "none";
+  }
+  document.getElementById("test").innerText = absolute_index;
+  if(absolute_index>0){
+    document.getElementById("prev").style.display="block";
+  }
+  else{
     document.getElementById("prev").style.display="none";
-
-}
-
-function getPhotos(i){
-    if(i==1){
-        j++;
-    }
-    else if (i==-1){
-        j--;
-    }
-	const elts = ["introTitle", "introInfo", "github", "linkedin", "photo_portfolio", "getHelloName"];
-    const len = elts.length;
-    for(var i =0; i<len; i++){
-        document.getElementById(elts[i]).style.display = "none";
-    }
-    document.getElementById('photo_intro').style.display = "block";
-    
-    var pics_len = document.getElementsByClassName("pics").length
-    var pics = document.getElementsByClassName("pics");
-    for(var i =0; i<pics_len; i++){
-        if(i==j%6){
-            (pics[j%6]).style.display = "block";
-        }
-        else{
-            (pics[i]).style.display = "none";
-        }
-    }
-    //document.getElementById("test").innerText = j;
-    if(j>0){
-    	document.getElementById("prev").style.display="block";
-    }
-    else{
-        document.getElementById("prev").style.display="none";
-    }
-	if(j<pics_len-1){
+  }
+	if(absolute_index<pics_len-1){
 		document.getElementById('next').style.display = "block";
-    }
-    else{
-        document.getElementById("next").style.display="none";
-    }
-    
-    document.getElementById('back').style.display = "block";
+  }
+  else{
+    document.getElementById("next").style.display="none";
+  }
+  // document.getElementById('back').style.display = "block";
+}
+
+function getComments(){
+  window.location=("./get-comments.html");
+  fetch('/data').then(response => response.text()).then((quote) => {
+    document.getElementById('why').innerText = quote;
+  });
+}
+
+function submitComments(){
+  window.location="/comments.html";
 }
 
 
-function getHelloName(){
-    const responsePromise = fetch('/data');
-
-  
-  responsePromise.then(handleResponse);
-
-
+function deleteComments(){
+  fetch(new Request('/delete-data', {method: 'POST'})).then( 
+    fetch(new Request('/data', {method: 'POST'}))).then(
+      getComments()
+    );
 }
