@@ -40,6 +40,19 @@ public class DataServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     
     response.setContentType("text/html;");
+    int i = 0;
+    int l = comments_fin.size();
+    while(i<l){
+      if(comments_fin.get(i)==null){
+        comments_fin.remove(i);
+        l--;
+      }
+      else{
+        i++;
+      }
+
+    }
+    
     response.getWriter().println(comments_fin);
   }
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {

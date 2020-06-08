@@ -71,9 +71,12 @@ function getPhotos(move_dir){
   document.getElementById('test').innerText = absolute_index;
 }
 
+function gotoComments(){
+  window.location=("./get-comments.html");
+}
 
 function getComments(){
-  window.location=("./get-comments.html");
+  
   fetch('/data').then(response => response.text()).then((quote) => {
     document.getElementById('why').innerText = quote;
   });
@@ -83,10 +86,11 @@ function submitComments(){
   window.location="/comments.html";
 }
 
-
 function deleteComments(){
   fetch(new Request('/delete-data', {method: 'POST'})).then( 
+    //delete data
     fetch(new Request('/data', {method: 'POST'}))).then(
+      //make sure comments updates
       getComments()
     );
 }
