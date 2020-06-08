@@ -43,7 +43,7 @@ function getPhotos(move_dir){
   var pics = document.getElementsByClassName("pics");
   for(var curr_index =0; curr_index<pics_len; curr_index++){
     
-    if(curr_index!=absolute_index%6){
+    if(curr_index!=absolute_index%pics_len){
       //curr_index is the index of the image in the array
       
       (pics[curr_index]).classList.add("hidden");
@@ -54,7 +54,7 @@ function getPhotos(move_dir){
     }
   }
   
-  document.getElementById("test").innerText = absolute_index;
+  // document.getElementById("test").innerText = absolute_index;
   if(absolute_index>0){
     document.getElementById("prev").style.display="block";
   }
@@ -67,6 +67,7 @@ function getPhotos(move_dir){
   else{
     document.getElementById("next").style.display="none";
   }
+  // alert(pic  s_len);
   document.getElementById('test').innerText = absolute_index;
 }
 
