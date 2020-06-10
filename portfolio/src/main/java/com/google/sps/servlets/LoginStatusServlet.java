@@ -25,15 +25,15 @@ public class LoginStatusServlet extends HttpServlet {
  
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-     response.setContentType("text/html");
-    PrintWriter out = response.getWriter();
+    //  response.setContentType("text/html");
+    // PrintWriter out = response.getWriter();
 
-    UserService userService = UserServiceFactory.getUserService();
-    if (userService.isUserLoggedIn()) {
-      out.println("True");
-    } else {
-      out.println("False");
-    }
+    // UserService userService = UserServiceFactory.getUserService();
+    // if (userService.isUserLoggedIn()) {
+    //   out.println("True");
+    // } else {
+    //   out.println("False");
+    // }
   }
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
    

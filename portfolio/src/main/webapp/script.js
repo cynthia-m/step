@@ -81,7 +81,7 @@ function getComments(){
 
 function submitComments(){
   window.location="./comments.html";
-  hideForm();
+  //hideForm();
 }
 
 function deleteComments(){
@@ -93,16 +93,16 @@ function deleteComments(){
     );
 }
 
-function hideForm(){
-  fetch('/login-status').then(response=>checkLogIn(response));
-}
+// function hideForm(){
+//   fetch('/login-status').then(response=>checkLogIn(response));
+// }
 
-function checkLogIn(b){
-  if(b.equals("True")){
-    document.getElementById("form").classList.remove("hidden");
-  }
-  else{
-     document.getElementById("form").classList.add("hidden");
-  }
-}
+// function checkLogIn(b){
+//   if(b.equals("False")){
+//     document.getElementById("form").classList.add("hidden");
+//   }
+//   else{
+//      document.getElementById("form").classList.remove("hidden");
+//   }
+// }
 
