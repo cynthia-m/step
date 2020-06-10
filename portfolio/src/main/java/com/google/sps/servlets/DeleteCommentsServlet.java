@@ -33,7 +33,7 @@ import com.google.appengine.api.datastore.Projection;
 
 /** Servlet that removes comments. */
 @WebServlet("/delete-data")
-public class DataServletDel extends HttpServlet {
+public class DeleteCommentsServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
