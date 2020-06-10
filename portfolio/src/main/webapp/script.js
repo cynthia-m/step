@@ -16,59 +16,56 @@
  * Adds a random greeting to the page.
  */
 
-var absolute_index = 0;
-//absolute_index is the index of the picture
+var absoluteIndex = 0;
+//absoluteIndex is the index of the picture
 
 function loadIntro(){
-    window.location =("/intro.html");
+  window.location =("./intro.html");
 }
 
 function getPhotos_pre(){
-    window.location=("./photography.html");
-    getPhotos(0);
+  
+  window.location=("./photography.html");
+    
+  getPhotos(0);
 }
 
-function getPhotos(move_dir){
-  
-  if(move_dir==1){
+
+function getPhotos(moveDir){
+  if(moveDir==1){
     //move to next image
-    absolute_index++;
+    absoluteIndex++;
   }
-  else if (move_dir==-1){
+  else if (moveDir==-1){
     //move to prev image
-    absolute_index--;
+    absoluteIndex--;
   }
     
-  var pics_len = document.getElementsByClassName("pics").length
+  var picsLen = document.getElementsByClassName("pics").length
   var pics = document.getElementsByClassName("pics");
-  for(var curr_index =0; curr_index<pics_len; curr_index++){
-    
-    if(curr_index!=absolute_index%pics_len){
-      //curr_index is the index of the image in the array
-      
-      (pics[curr_index]).classList.add("hidden");
+  for(var currIndex =0; currIndex<picsLen; currIndex++){
+    if(currIndex!=absoluteIndex%picsLen){
+      //currIndex is the index of the image in the array
+      (pics[currIndex]).classList.add("hidden");
     }
     else{
-      (pics[curr_index]).classList.remove("hidden");
-      
+      (pics[currIndex]).classList.remove("hidden");
     }
   }
   
-  // document.getElementById("test").innerText = absolute_index;
-  if(absolute_index>0){
+  if(absoluteIndex>0){
     document.getElementById("prev").style.display="block";
   }
   else{
     document.getElementById("prev").style.display="none";
   }
-	if(absolute_index<pics_len-1){
+	if(absoluteIndex<picsLen-1){
 		document.getElementById('next').style.display = "block";
   }
   else{
     document.getElementById("next").style.display="none";
   }
-  // alert(pic  s_len);
-  document.getElementById('test').innerText = absolute_index;
+  document.getElementById('test').innerText = absoluteIndex;
 }
 
 function gotoComments(){
@@ -76,14 +73,15 @@ function gotoComments(){
 }
 
 function getComments(){
-  
-  fetch('/data').then(response => response.text()).then((quote) => {
-    document.getElementById('why').innerText = quote;
+  var displayNumComments = document.getElementById("quantity").value;
+  fetch('/data?max='+displayNumComments).then(response => response.text()).then((quote) => {
+    document.getElementById('comments').innerText = quote;
   });
 }
 
 function submitComments(){
-  window.location="/comments.html";
+  window.location="./comments.html";
+  hideForm();
 }
 
 function deleteComments(){
@@ -94,3 +92,17 @@ function deleteComments(){
       getComments()
     );
 }
+
+function hideForm(){
+  fetch('/login-status').then(response=>checkLogIn(response));
+}
+
+function checkLogIn(b){
+  if(b.equals("True")){
+    document.getElementById("form").classList.remove("hidden");
+  }
+  else{
+     document.getElementById("form").classList.add("hidden");
+  }
+}
+

@@ -31,26 +31,18 @@ import java.util.Collections;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Projection;
 
-
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
+/** Servlet that removes comments. */
 @WebServlet("/delete-data")
 public class DataServletDel extends HttpServlet {
-    
-  ArrayList <String> comments = new ArrayList <String> ();
-  ArrayList <String> comments_fin = new ArrayList <String> ();
-    
-    
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("text/html;");
-    response.getWriter().println(comments_fin);
+    response.getWriter().println(new ArrayList<String>());
   }
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-    comments_fin.clear();
-    comments.clear();
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    
     Query query = new Query("Feedback");
     PreparedQuery results = datastore.prepare(query);
     for (Entity entity : results.asIterable()) {
