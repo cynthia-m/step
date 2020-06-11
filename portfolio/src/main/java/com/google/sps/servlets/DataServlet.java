@@ -29,6 +29,9 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import java.util.Collections;
 
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+
 /** Servlet that returns comments to user.*/
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
@@ -37,7 +40,7 @@ public class DataServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     
     response.setContentType("text/html;");
-    int i = 0;
+    
     
     ArrayList <String> commentsFin = new ArrayList<String>();
     ArrayList <String> comments = new ArrayList<String>();
@@ -63,21 +66,22 @@ public class DataServlet extends HttpServlet {
       commentsFin.add(comments.get(currNumComments));
       currNumComments++;
     }
-
-    int l = commentsFin.size();
-    while (i<l) {
-      if (commentsFin.get(i) == null) {
-        commentsFin.remove(i);
-        l--;
+    int commentsFinEltIdx = 0;
+    int commentFinLen = commentsFin.size();
+    while (commentsFinEltIdx<commentFinLen) {
+      if (commentsFin.get(commentsFinEltIdx) == null) {
+        commentsFin.remove(commentsFinEltIdx);
+        commentFinLen--;
       }
       else {
-        i++;
+        commentsFinEltIdx++;
       }
     }
     
     response.getWriter().println(commentsFin);
     
   }
+  @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String comment = request.getParameter("comment");
 
