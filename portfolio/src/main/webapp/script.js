@@ -1,3 +1,4 @@
+
 // Copyright 2019 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -79,11 +80,6 @@ function getComments(){
   });
 }
 
-function submitComments(){
-  window.location="./comments.html";
-  //hideForm();
-}
-
 function deleteComments(){
   fetch(new Request('/delete-data', {method: 'POST'})).then( 
     //delete data
@@ -92,17 +88,99 @@ function deleteComments(){
       getComments()
     );
 }
+function submitComments(){
+  window.location="./comments.html";
+}
 
-// function hideForm(){
-//   fetch('/login-status').then(response=>checkLogIn(response));
-// }
 
-// function checkLogIn(b){
-//   if(b.equals("False")){
-//     document.getElementById("form").classList.add("hidden");
-//   }
-//   else{
-//      document.getElementById("form").classList.remove("hidden");
-//   }
-// }
+function hideForm(){
+  fetch('/login-status').then(response => response.json()).then((result) =>checkLogIn(result));
+}
 
+function checkLogIn(b){
+  alert(typeof(b.result));
+  alert(b.result);
+  if(!b.result){
+    alert("not logged in");
+    document.getElementById("formuwu").classList.add("hidden");
+    document.getElementById("formuwu").classList.remove("notHidden");
+    // const statsListElement = document.getElementById('unique');
+    // statsListElement.innerText = b.login;
+    
+    // alert(document.getElementById("formuwu").classList);
+  }
+  else{
+    alert("logged in");
+    document.getElementById("formuwu").classList.remove("hidden");
+    document.getElementById("formuwu").classList.add("notHidden");
+    // alert(document.getElementById("formuwu").classList);
+  }
+  // window.location.reload();
+}
+
+google.charts.load('current', {
+        'packages':['geochart','corechart'],
+        // Note: you will need to get a mapsApiKey for your project.
+        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+        'mapsApiKey': 'AIzaSyAOz5UekvNaqSJ06dcAMHfCOS-F8A9fivg'
+      });
+// google.charts.setOnLoadCallback(uwu);
+// google.charts.setOnLoadCallback(flowerChart);
+function getLocChart() {
+  window.location = "./chart.html";
+}
+
+function uwu() {
+        var data = google.visualization.arrayToDataTable([
+          ['Country', 'Times Visited'],
+          ['China', 19],
+          ['France', 1],
+          ['Japan', 1],
+          ['South Korea', 1],
+          ['Amsterdam', 1],
+          ['Spain', 1],
+          ['England', 1],
+          ['Canada', 7]
+        ]);
+
+        var options = {};
+
+        var chart = new google.visualization.GeoChart(document.getElementById('chart-container'));
+
+        chart.draw(data, options);
+      }
+
+function getFlowerChart() {
+  window.location = "./favFlower.html";
+}
+
+function flowerChart() {
+fetch('/fav-flower').then(response => response.json()).then(
+  (result) =>{
+   const data = new google.visualization.DataTable();
+    data.addColumn('string', 'Flower');
+    data.addColumn('number', 'Votes');
+    
+    //fix variable name
+    
+    var yeet = Object.keys(result);
+    var i;
+    for(i = 0; i<yeet.length;i++){
+      
+      data.addRow([yeet[i], result[yeet[i]]]);
+    }
+
+    const options = {
+      'title': 'Favorite Flowers',
+      'width':600,
+      'height':500
+    };
+    const chart = new google.visualization.ColumnChart(
+        document.getElementById('chart-container'));
+    chart.draw(data, options);
+  
+
+
+  });
+    
+}
