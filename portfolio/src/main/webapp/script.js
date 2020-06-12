@@ -184,3 +184,13 @@ fetch('/fav-flower').then(response => response.json()).then(
   });
     
 }
+function gotoMap(){
+ window.location = "./map.html";
+
+}
+
+function createMap() {
+  const map = new google.maps.Map(
+      document.getElementById('map'),
+      {center: {lat: 37.422, lng: -122.084}, zoom: 16});
+}

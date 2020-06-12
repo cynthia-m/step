@@ -1,0 +1,58 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <title>Hello Google Maps</title>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8sOS4BKwHwv3iuu8JDyHrAonLNEeoyv0"></script>
+  <script src="script.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body> -->
+   <!-- onload="createMap();"> -->
+  <!-- <h1>Hello Google Maps</h1>
+  <button onclick = createMap()> GET MAP </button>
+  <div id="map"></div>
+  <p>This page shows a Google Map!</p>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MAP</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 99%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 99%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8sOS4BKwHwv3iuu8JDyHrAonLNEeoyv0"></script>
+    <script>
+      var myLatlng = new google.maps.LatLng(42.4534, -76.4735);
+      var mapOptions = {
+        zoom: 8,
+        center: myLatlng,
+        mapTypeId: 'satellite'
+      };
+      var map = new google.maps.Map(document.getElementById('map'),
+        mapOptions);
+      const trexMarker = new google.maps.Marker({
+        position: {lat: 42.4534, lng:-76.4735},
+        map: map,
+        title: 'Cornell University'
+      });
+    </script>
+    <button id="back" class = "intro" onclick="loadIntro()">Back</button>
+  </body>
+</html>
