@@ -42,14 +42,14 @@ public class DataServlet extends HttpServlet {
     response.setContentType("text/html;");
     
     
-    ArrayList <String> commentsFin = new ArrayList<String>();
-    ArrayList <String> comments = new ArrayList<String>();
+    ArrayList<String> commentsFin = new ArrayList<String>();
+    ArrayList<String> comments = new ArrayList<String>();
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
     Query query = new Query("Feedback");
     PreparedQuery results = datastore.prepare(query);
     for (Entity entity : results.asIterable()) {
-      comments.add((String)entity.getProperty("comment"));
+      comments.add((String) entity.getProperty("comment"));
     }
 
     int currNumComments = 0;
@@ -77,7 +77,19 @@ public class DataServlet extends HttpServlet {
         commentsFinEltIdx++;
       }
     }
-    
+    String oof="";
+
+    UserService userService = UserServiceFactory.getUserService();
+    if (userService.isUserLoggedIn()) {
+      String userEmail = userService.getCurrentUser().getEmail();
+      oof+=userEmail;
+    } else {
+      String urlToRedirectToAfterUserLogsIn = "/";
+      String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
+      response.getWriter().println("<p>Hello stranger.</p>");
+      response.getWriter().println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
+    }
+    oof+=" "+commentsFin;
     response.getWriter().println(commentsFin);
     
   }

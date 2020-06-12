@@ -25,17 +25,39 @@ public class LoginStatusServlet extends HttpServlet {
  
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    //  response.setContentType("text/html");
-    // PrintWriter out = response.getWriter();
+    response.setContentType("application/json");
 
-    // UserService userService = UserServiceFactory.getUserService();
-    // if (userService.isUserLoggedIn()) {
-    //   out.println("True");
-    // } else {
-    //   out.println("False");
-    // }
+    UserService userService = UserServiceFactory.getUserService();
+    String json = "{";
+    json += "\"result\": ";
+    boolean check = true;
+    String login = "";
+    if (userService.isUserLoggedIn()) {
+      System.out.println("true");
+      check= true;
+    } else {
+      check = false;
+      String urlToRedirectToAfterUserLogsIn = "/";
+      String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
+
+      // response.getWriter().println("<p>Hello stranger.</p>");
+      // response.getWriter().println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
+      // login += "<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>";
+      login += "AYOO";
+      System.out.println("false");
+    }
+    json+=check;
+    //format of JSON is wrong
+    
+    // json+="\"login\": ";
+    // json+="AYO";
+    json += "}";
+    System.out.println(json);
+    response.getWriter().println(json);
+    
   }
+  @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-   
+    String comment = request.getParameter("comment");
   }
 }

@@ -40,6 +40,7 @@ public class DeleteCommentsServlet extends HttpServlet {
     response.setContentType("text/html;");
     response.getWriter().println(new ArrayList<String>());
   }
+  @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
