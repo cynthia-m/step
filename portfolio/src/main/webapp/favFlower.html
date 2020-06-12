@@ -5,10 +5,12 @@
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="script.js"></script>
   </head>
+  
   <body>
     <h1>Favorite Colors</h1>
     <div id="chart-container"></div>
     <h2>Vote</h2>
+
     <form action="/fav-flower" method="POST">
       <select name="flower">
         <option value="Rose">Rose</option>
@@ -18,9 +20,9 @@
       </select>
       <button>Submit</button>
     </form>
+
     <button onclick = "flowerChart() ">Look!</buttton>
     <div id="chart-container"></div>
-
-  <button id="back" class = "intro" onclick="loadIntro()">Back</button>
+    <button id="back" class = "intro" onclick="loadIntro()">Back</button>
   </body>
 </html>

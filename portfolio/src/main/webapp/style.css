@@ -3,13 +3,10 @@
   margin-right: auto;
   width: 650px;
 }
-
 #greeting-container {
   margin-top: 20px;
 }
-
-h1{
-    
+h1{  
   margin-left: auto;
   margin-right: auto;
   margin-top:200px;
@@ -19,9 +16,7 @@ h1{
   text-shadow: 0 0 18px rgb(255,255,255);
   font-family:  'Proxima Nova Soft', 'Helvetica Neue', sans-serif;;
 }
-
 p {
-    
   margin-left: auto;
   margin-right: auto;
   margin-top:10px;
@@ -33,13 +28,11 @@ p {
   padding:10px;
   font-family: 'Courier New', Courier, monospace
 }
-
 body {
   background-color: floralwhite;
   background-image: url("images/bg2.JPG");
   background-size: cover
 }
-
 div{
   margin-left: auto;
   margin-right: auto;
@@ -52,8 +45,6 @@ div{
   padding:10px;
   font-family: 'Courier New', Courier, monospace
 }
-
-
 #play_button {
   position: absolute;
   left: 50%;
@@ -64,7 +55,6 @@ div{
   font-size: 30px;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
-
 #prev {
   position: absolute;
   left: 30%;
@@ -73,7 +63,6 @@ div{
   font-size: 30px;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
-
 #next {
   position: absolute;
   right: 30%;
@@ -82,7 +71,6 @@ div{
   font-size: 30px;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
-
 .pics{
   max-width: 400px;
   height:auto;
@@ -92,16 +80,12 @@ div{
   background-color:rgba(255,255,255,.7);
   display:block;
 }
-
 .hidden{
   display:none;
 }
 .notHidden{
   display:block;
 }
-
-
-
 .bgImage{
   padding: 0;
   display: block;
@@ -109,7 +93,6 @@ div{
   max-height: 100%;
   max-width: 100%;
 }
-
 .intro {
   display:block;
   margin-left: auto;

@@ -32,7 +32,6 @@ function getPhotos(moveDir){
     //move to prev image
     absoluteIndex--;
   }
-    
   var picsLen = document.getElementsByClassName("pics").length
   var pics = document.getElementsByClassName("pics");
   for(var currIndex =0; currIndex<picsLen; currIndex++){
@@ -71,10 +70,11 @@ function getComments(){
 function deleteComments(){
   fetch(new Request('/delete-data', {method: 'POST'})).then( 
     //delete data
-    fetch(new Request('/data', {method: 'POST'}))).then(
+    fetch(new Request('/data', {method: 'POST'}))
+  ).then(
       //make sure comments updates
       getComments()
-    );
+  );
 }
 
 function submitComments(){
@@ -100,11 +100,10 @@ function checkLogIn(b){
 }
 
 google.charts.load('current', {
-        'packages':['geochart','corechart'],
-        'mapsApiKey': 'AIzaSyAOz5UekvNaqSJ06dcAMHfCOS-F8A9fivg'
-      });
-// google.charts.setOnLoadCallback(uwu);
-// google.charts.setOnLoadCallback(flowerChart);
+  'packages':['geochart','corechart'],
+  'mapsApiKey': 'AIzaSyAOz5UekvNaqSJ06dcAMHfCOS-F8A9fivg'
+  }
+);
 
 function getLocChart() {
   window.location = "./chart.html";
@@ -139,7 +138,6 @@ fetch('/fav-flower').then(response => response.json()).then(
     data.addColumn('string', 'Flower');
     data.addColumn('number', 'Votes');
     //fix variable name
-    
     var yeet = Object.keys(result);
     var i;
     for(i = 0; i<yeet.length;i++){
@@ -162,6 +160,7 @@ function gotoMap(){
 
 function createMap() {
   const map = new google.maps.Map(
-      document.getElementById('map'),
-      {center: {lat: 37.422, lng: -122.084}, zoom: 16});
+    document.getElementById('map'),
+    {center: {lat: 37.422, lng: -122.084}, zoom: 16}
+  );
 }
