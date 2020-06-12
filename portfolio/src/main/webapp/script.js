@@ -1,4 +1,3 @@
-
 // Copyright 2019 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,10 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * Adds a random greeting to the page.
- */
-
 var absoluteIndex = 0;
 //absoluteIndex is the index of the picture
 
@@ -25,19 +20,15 @@ function loadIntro(){
 }
 
 function getPhotos_pre(){
-  
-  window.location=("./photography.html");
-    
+  window.location=("./photography.html");  
   getPhotos(0);
 }
-
 
 function getPhotos(moveDir){
   if(moveDir==1){
     //move to next image
     absoluteIndex++;
-  }
-  else if (moveDir==-1){
+  } else if (moveDir==-1){
     //move to prev image
     absoluteIndex--;
   }
@@ -48,22 +39,19 @@ function getPhotos(moveDir){
     if(currIndex!=absoluteIndex%picsLen){
       //currIndex is the index of the image in the array
       (pics[currIndex]).classList.add("hidden");
-    }
-    else{
+    } else{
       (pics[currIndex]).classList.remove("hidden");
     }
   }
   
   if(absoluteIndex>0){
     document.getElementById("prev").style.display="block";
-  }
-  else{
+  } else{
     document.getElementById("prev").style.display="none";
   }
 	if(absoluteIndex<picsLen-1){
 		document.getElementById('next').style.display = "block";
-  }
-  else{
+  } else{
     document.getElementById("next").style.display="none";
   }
   document.getElementById('test').innerText = absoluteIndex;
@@ -88,10 +76,10 @@ function deleteComments(){
       getComments()
     );
 }
+
 function submitComments(){
   window.location="./comments.html";
 }
-
 
 function hideForm(){
   fetch('/login-status').then(response => response.json()).then((result) =>checkLogIn(result));
@@ -104,51 +92,41 @@ function checkLogIn(b){
     alert("not logged in");
     document.getElementById("formuwu").classList.add("hidden");
     document.getElementById("formuwu").classList.remove("notHidden");
-    // const statsListElement = document.getElementById('unique');
-    // statsListElement.innerText = b.login;
-    
-    // alert(document.getElementById("formuwu").classList);
-  }
-  else{
+  } else{
     alert("logged in");
     document.getElementById("formuwu").classList.remove("hidden");
     document.getElementById("formuwu").classList.add("notHidden");
-    // alert(document.getElementById("formuwu").classList);
   }
-  // window.location.reload();
 }
 
 google.charts.load('current', {
         'packages':['geochart','corechart'],
-        // Note: you will need to get a mapsApiKey for your project.
-        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
         'mapsApiKey': 'AIzaSyAOz5UekvNaqSJ06dcAMHfCOS-F8A9fivg'
       });
 // google.charts.setOnLoadCallback(uwu);
 // google.charts.setOnLoadCallback(flowerChart);
+
 function getLocChart() {
   window.location = "./chart.html";
 }
 
-function uwu() {
-        var data = google.visualization.arrayToDataTable([
-          ['Country', 'Times Visited'],
-          ['China', 19],
-          ['France', 1],
-          ['Japan', 1],
-          ['South Korea', 1],
-          ['Amsterdam', 1],
-          ['Spain', 1],
-          ['England', 1],
-          ['Canada', 7]
-        ]);
+function getVisitedCountryCountChart() {
+  var data = google.visualization.arrayToDataTable([
+    ['Country', 'Times Visited'],
+    ['China', 19],
+    ['France', 1],
+    ['Japan', 1],
+    ['South Korea', 1],
+    ['Amsterdam', 1],
+    ['Spain', 1],
+    ['England', 1],
+    ['Canada', 7]
+  ]);
 
-        var options = {};
-
-        var chart = new google.visualization.GeoChart(document.getElementById('chart-container'));
-
-        chart.draw(data, options);
-      }
+  var options = {};
+  const chart = new google.visualization.GeoChart(document.getElementById('jump'));
+  chart.draw(data, options);
+}
 
 function getFlowerChart() {
   window.location = "./favFlower.html";
@@ -160,16 +138,13 @@ fetch('/fav-flower').then(response => response.json()).then(
    const data = new google.visualization.DataTable();
     data.addColumn('string', 'Flower');
     data.addColumn('number', 'Votes');
-    
     //fix variable name
     
     var yeet = Object.keys(result);
     var i;
     for(i = 0; i<yeet.length;i++){
-      
       data.addRow([yeet[i], result[yeet[i]]]);
     }
-
     const options = {
       'title': 'Favorite Flowers',
       'width':600,
@@ -178,15 +153,11 @@ fetch('/fav-flower').then(response => response.json()).then(
     const chart = new google.visualization.ColumnChart(
         document.getElementById('chart-container'));
     chart.draw(data, options);
-  
-
-
   });
-    
 }
-function gotoMap(){
- window.location = "./map.html";
 
+function gotoMap(){
+  window.location = "./map.html";
 }
 
 function createMap() {
