@@ -47,7 +47,7 @@ public class FavFlowerServlet extends HttpServlet {
     Query query = new Query("Flower");
     PreparedQuery results = datastore.prepare(query);
     for (Entity entity : results.asIterable()) {
-      flowerVotes.put(entity.getProperty("flowerChoice").toString(),1);
+      flowerVotes.put(entity.getProperty("flowerChoice").toString(),0);
     }
 
     int numVotes = 0;
@@ -61,7 +61,7 @@ public class FavFlowerServlet extends HttpServlet {
     Gson gson = new Gson();
     String json = gson.toJson(flowerVotes);
     response.getWriter().println(json);
-    System.out.println(json);
+    
   }
 
   @Override
@@ -74,7 +74,6 @@ public class FavFlowerServlet extends HttpServlet {
     flowerEntity.setProperty("count",1);
     datastore.put(flowerEntity);
     response.sendRedirect("/favFlower.html");
-    
-    
+
   }
 }
