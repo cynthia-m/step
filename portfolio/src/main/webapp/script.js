@@ -23,7 +23,7 @@ function getPhotos_pre() {
 var absoluteIndex = 0;
 //absoluteIndex is the index of the picture
 function getPhotos(moveDir) {
-  if (moveDir == 1){
+  if (moveDir == 1) {
     //move to next image
     absoluteIndex++;
   } else if (moveDir == -1) {
