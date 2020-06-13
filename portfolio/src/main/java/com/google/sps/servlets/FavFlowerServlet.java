@@ -33,7 +33,6 @@ import java.util.HashMap;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
-
 @WebServlet("/fav-flower")
 public class FavFlowerServlet extends HttpServlet {
 
@@ -52,7 +51,7 @@ public class FavFlowerServlet extends HttpServlet {
     
     for (Entity entity : results.asIterable()) {
       flowerVotes.replace(entity.getProperty("flowerChoice").toString(),
-        flowerVotes.get(entity.getProperty("flowerChoice").toString())+1
+        flowerVotes.get(entity.getProperty("flowerChoice").toString()) + 1
       );
     }
 
@@ -67,8 +66,8 @@ public class FavFlowerServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
     Entity flowerEntity = new Entity("Flower");
-    flowerEntity.setProperty("flowerChoice",flower);
-    flowerEntity.setProperty("count",1);
+    flowerEntity.setProperty("flowerChoice", flower);
+    flowerEntity.setProperty("count", 1);
     datastore.put(flowerEntity);
     response.sendRedirect("/favFlower.html");
   }

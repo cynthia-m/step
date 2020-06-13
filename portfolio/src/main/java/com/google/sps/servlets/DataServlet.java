@@ -50,7 +50,6 @@ public class DataServlet extends HttpServlet {
       comments.add((String) entity.getProperty("comment"));
     }
 
-    int currNumComments = 0;
     int maxNumComments;
     try {
       maxNumComments = Integer.parseInt(request.getParameter("max"));
@@ -58,13 +57,15 @@ public class DataServlet extends HttpServlet {
       maxNumComments = 3;
       System.err.println("Invalid Number, Use Default: 3");
     }
-    String userEmail="";
+    String userEmail = "";
 
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn()) {
       userEmail += userService.getCurrentUser().getEmail();
     }
+
     Collections.shuffle(comments);
+    int currNumComments = 0;
     while (currNumComments < maxNumComments && currNumComments < comments.size()) {
       if (comments.get(currNumComments) != null) {
         commentsFin.add(userEmail+": " + comments.get(currNumComments));
@@ -81,7 +82,7 @@ public class DataServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
     Entity taskEntity = new Entity("Feedback");
-    taskEntity.setProperty("comment",comment);
+    taskEntity.setProperty("comment", comment);
     datastore.put(taskEntity);
     
     response.sendRedirect("/comments.html");
