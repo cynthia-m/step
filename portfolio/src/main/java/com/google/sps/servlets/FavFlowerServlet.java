@@ -40,28 +40,25 @@ public class FavFlowerServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("application/json");
-    HashMap<String, Integer> flowerVotes = new HashMap<String, Integer>();
+    HashMap<String, Integer> flowerVotes = new HashMap<String, Integer> ();
     
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     
     Query query = new Query("Flower");
     PreparedQuery results = datastore.prepare(query);
     for (Entity entity : results.asIterable()) {
-      flowerVotes.put(entity.getProperty("flowerChoice").toString(),0);
+      flowerVotes.put(entity.getProperty("flowerChoice").toString(), 0);
     }
-
-    int numVotes = 0;
     
     for (Entity entity : results.asIterable()) {
       flowerVotes.replace(entity.getProperty("flowerChoice").toString(),
-      flowerVotes.get(entity.getProperty("flowerChoice").toString())+1
+        flowerVotes.get(entity.getProperty("flowerChoice").toString())+1
       );
     }
 
     Gson gson = new Gson();
     String json = gson.toJson(flowerVotes);
     response.getWriter().println(json);
-    
   }
 
   @Override
@@ -74,6 +71,5 @@ public class FavFlowerServlet extends HttpServlet {
     flowerEntity.setProperty("count",1);
     datastore.put(flowerEntity);
     response.sendRedirect("/favFlower.html");
-
   }
 }

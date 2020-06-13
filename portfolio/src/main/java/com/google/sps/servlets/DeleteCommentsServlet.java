@@ -34,16 +34,17 @@ import com.google.appengine.api.datastore.Projection;
 /** Servlet that removes comments. */
 @WebServlet("/delete-data")
 public class DeleteCommentsServlet extends HttpServlet {
-
+  
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("text/html;");
-    response.getWriter().println(new ArrayList<String>());
+    response.getWriter().println(new ArrayList<String> ());
   }
+
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
     Query query = new Query("Feedback");
     PreparedQuery results = datastore.prepare(query);
     for (Entity entity : results.asIterable()) {

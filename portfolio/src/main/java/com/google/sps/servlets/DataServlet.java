@@ -38,12 +38,10 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    
     response.setContentType("text/html;");
     
-    
-    ArrayList<String> commentsFin = new ArrayList<String>();
-    ArrayList<String> comments = new ArrayList<String>();
+    ArrayList<String> commentsFin = new ArrayList<String> ();
+    ArrayList<String> comments = new ArrayList<String> ();
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
     Query query = new Query("Feedback");
@@ -62,18 +60,17 @@ public class DataServlet extends HttpServlet {
     }
 
     Collections.shuffle(comments);
-    while (currNumComments<maxNumComments && currNumComments<comments.size()) {
+    while (currNumComments < maxNumComments && currNumComments < comments.size()) {
       commentsFin.add(comments.get(currNumComments));
       currNumComments++;
     }
     int commentsFinEltIdx = 0;
     int commentFinLen = commentsFin.size();
-    while (commentsFinEltIdx<commentFinLen) {
+    while (commentsFinEltIdx < commentFinLen) {
       if (commentsFin.get(commentsFinEltIdx) == null) {
         commentsFin.remove(commentsFinEltIdx);
         commentFinLen--;
-      }
-      else {
+      } else {
         commentsFinEltIdx++;
       }
     }
@@ -91,8 +88,8 @@ public class DataServlet extends HttpServlet {
     }
     oof+=" "+commentsFin;
     response.getWriter().println(commentsFin);
-    
   }
+  
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String comment = request.getParameter("comment");
@@ -105,5 +102,4 @@ public class DataServlet extends HttpServlet {
     
     response.sendRedirect("/comments.html");
   }
-
 }
