@@ -55,13 +55,23 @@ public class DataServlet extends HttpServlet {
     try {
       maxNumComments = Integer.parseInt(request.getParameter("max"));
     } catch (NumberFormatException e) {
-      System.err.println("Invalid Number, Use Default: 3");
       maxNumComments = 3;
+      //throw new IllegalArgumentException("Invalid Number");
+      // System.err.println("Invalid Number, Use Default: 3");
+      
+    }
+    
+    String oof="";
+
+    UserService userService = UserServiceFactory.getUserService();
+    if (userService.isUserLoggedIn()) {
+      String userEmail = userService.getCurrentUser().getEmail();
+      oof+=userEmail;
     }
 
     Collections.shuffle(comments);
     while (currNumComments < maxNumComments && currNumComments < comments.size()) {
-      commentsFin.add(comments.get(currNumComments));
+      commentsFin.add(oof+": "+comments.get(currNumComments));
       currNumComments++;
     }
     int commentsFinEltIdx = 0;
@@ -74,19 +84,14 @@ public class DataServlet extends HttpServlet {
         commentsFinEltIdx++;
       }
     }
-    String oof="";
-
-    UserService userService = UserServiceFactory.getUserService();
-    if (userService.isUserLoggedIn()) {
-      String userEmail = userService.getCurrentUser().getEmail();
-      oof+=userEmail;
-    } else {
-      String urlToRedirectToAfterUserLogsIn = "/";
-      String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
-      response.getWriter().println("<p>Hello stranger.</p>");
-      response.getWriter().println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
-    }
-    oof+=" "+commentsFin;
+   
+    //  else {
+    //   String urlToRedirectToAfterUserLogsIn = "/";
+    //   String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
+    //   response.getWriter().println("<p>Hello stranger.</p>");
+    //   response.getWriter().println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
+    // }
+    // oof+=" "+commentsFin;
     response.getWriter().println(commentsFin);
   }
   

@@ -90,14 +90,17 @@ function hideForm() {
 function checkLogIn(b) {
   // alert(typeof(b.result));
   // alert(b.result);
-  if(!b.result) {
-    // alert("not logged in");
+  if (b.result == "false") {
+    alert("not logged in");
+    // alert(b.login);
     document.getElementById("form").classList.add("hidden");
     document.getElementById("form").classList.remove("notHidden");
+    document.getElementById("unique").innerHTML = b.login;
   } else {
-    // alert("logged in");
+    alert("logged in");
     document.getElementById("form").classList.remove("hidden");
     document.getElementById("form").classList.add("notHidden");
+    document.getElementById("unique").innerHTML = b.logout;
   }
 }
 

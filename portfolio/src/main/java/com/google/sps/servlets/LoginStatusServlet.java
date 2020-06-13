@@ -18,6 +18,7 @@ import java.util.Collections;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import java.io.PrintWriter;
+import java.util.HashMap; 
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/login-status")
@@ -27,31 +28,38 @@ public class LoginStatusServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("application/json");
 
+    HashMap<String, String> ans = new HashMap<String, String> ();
+
     UserService userService = UserServiceFactory.getUserService();
-    String json = "{";
-    json += "\"result\": ";
-    boolean check = true;
+
+    String check = "true";
     String login = "";
+    String logout = "";
     if (userService.isUserLoggedIn()) {
       System.out.println("true");
-      check= true;
-    } else {
-      check = false;
-      String urlToRedirectToAfterUserLogsIn = "/";
-      String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
+      check= "true";
 
-      // response.getWriter().println("<p>Hello stranger.</p>");
-      // response.getWriter().println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
-      // login += "<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>";
-      login += "AYOO";
+      String userEmail = userService.getCurrentUser().getEmail();
+      String urlToRedirectToAfterUserLogsOut = "/submitComments.html";
+      logout = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
+      logout = "Logout <a href=\"" + logout + "\">here</a>.";
+
+    } else {
+      check = "false";
+      String urlToRedirectToAfterUserLogsIn = "/submitComments.html";
+      String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
+      
+      login += "Login <a href=\"" + loginUrl + "\">here</a>.";
+      
       System.out.println("false");
     }
-    json+=check;
-    //format of JSON is wrong
-    
-    // json+="\"login\": ";
-    // json+="AYO";
-    json += "}";
+    ans.put("result", check);
+    ans.put("login", login);
+    ans.put("logout", logout);
+
+    Gson gson = new Gson();
+    String json = gson.toJson(ans);
+
     System.out.println(json);
     response.getWriter().println(json);
     
