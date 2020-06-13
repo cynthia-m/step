@@ -56,23 +56,18 @@ public class DataServlet extends HttpServlet {
       maxNumComments = Integer.parseInt(request.getParameter("max"));
     } catch (NumberFormatException e) {
       maxNumComments = 3;
-      //throw new IllegalArgumentException("Invalid Number");
-      // System.err.println("Invalid Number, Use Default: 3");
-      
+      System.err.println("Invalid Number, Use Default: 3");
     }
-    
-    String oof="";
+    String userEmail="";
 
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn()) {
-      String userEmail = userService.getCurrentUser().getEmail();
-      oof+=userEmail;
+      userEmail += userService.getCurrentUser().getEmail();
     }
-
     Collections.shuffle(comments);
     while (currNumComments < maxNumComments && currNumComments < comments.size()) {
       if (comments.get(currNumComments) != null) {
-        commentsFin.add(oof+": "+comments.get(currNumComments));
+        commentsFin.add(userEmail+": " + comments.get(currNumComments));
       }
       currNumComments++;
     }

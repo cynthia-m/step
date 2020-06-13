@@ -89,15 +89,13 @@ function hideForm() {
 
 function checkLogIn(user) {
   if (user.checkLoggedIn == "false") {
-    alert("not logged in");
     document.getElementById("form").classList.add("hidden");
     document.getElementById("form").classList.remove("notHidden");
-    document.getElementById("unique").innerHTML = b.loginURL;
+    document.getElementById("unique").innerHTML = user.loginURL;
   } else {
-    alert("logged in");
     document.getElementById("form").classList.remove("hidden");
     document.getElementById("form").classList.add("notHidden");
-    document.getElementById("unique").innerHTML = b.logoutURL;
+    document.getElementById("unique").innerHTML = user.logoutURL;
   }
 }
 
@@ -139,7 +137,7 @@ function flowerChart() {
       const data = new google.visualization.DataTable();
       data.addColumn('string', 'Flower');
       data.addColumn('number', 'Votes');
-      //fix variable name
+
       var flowerJsonKeys = Object.keys(flowerJson);
       var currKey;
       for(currKey = 0; currKey < flowerJsonKeys.length; currKey++){

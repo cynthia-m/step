@@ -20,7 +20,7 @@ import com.google.appengine.api.users.UserServiceFactory;
 import java.io.PrintWriter;
 import java.util.HashMap; 
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
+/** Servlet that returns login status. */
 @WebServlet("/login-status")
 public class LoginStatusServlet extends HttpServlet {
  
@@ -36,7 +36,7 @@ public class LoginStatusServlet extends HttpServlet {
     String loginURL = "";
     String logoutURL = "";
     if (userService.isUserLoggedIn()) {
-      isLoggedIn= "true";
+      isLoggedIn = "true";
 
       String userEmail = userService.getCurrentUser().getEmail();
       String urlToRedirectToAfterUserLogsOut = "/submitComments.html";
