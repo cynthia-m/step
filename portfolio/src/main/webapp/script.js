@@ -87,20 +87,17 @@ function hideForm() {
   fetch('/login-status').then(response => response.json()).then((result) => checkLogIn(result));
 }
 
-function checkLogIn(b) {
-  // alert(typeof(b.result));
-  // alert(b.result);
-  if (b.result == "false") {
+function checkLogIn(user) {
+  if (user.checkLoggedIn == "false") {
     alert("not logged in");
-    // alert(b.login);
     document.getElementById("form").classList.add("hidden");
     document.getElementById("form").classList.remove("notHidden");
-    document.getElementById("unique").innerHTML = b.login;
+    document.getElementById("unique").innerHTML = b.loginURL;
   } else {
     alert("logged in");
     document.getElementById("form").classList.remove("hidden");
     document.getElementById("form").classList.add("notHidden");
-    document.getElementById("unique").innerHTML = b.logout;
+    document.getElementById("unique").innerHTML = b.logoutURL;
   }
 }
 

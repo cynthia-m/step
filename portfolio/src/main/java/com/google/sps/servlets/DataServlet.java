@@ -71,27 +71,11 @@ public class DataServlet extends HttpServlet {
 
     Collections.shuffle(comments);
     while (currNumComments < maxNumComments && currNumComments < comments.size()) {
-      commentsFin.add(oof+": "+comments.get(currNumComments));
+      if (comments.get(currNumComments) != null) {
+        commentsFin.add(oof+": "+comments.get(currNumComments));
+      }
       currNumComments++;
     }
-    int commentsFinEltIdx = 0;
-    int commentFinLen = commentsFin.size();
-    while (commentsFinEltIdx < commentFinLen) {
-      if (commentsFin.get(commentsFinEltIdx) == null) {
-        commentsFin.remove(commentsFinEltIdx);
-        commentFinLen--;
-      } else {
-        commentsFinEltIdx++;
-      }
-    }
-   
-    //  else {
-    //   String urlToRedirectToAfterUserLogsIn = "/";
-    //   String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
-    //   response.getWriter().println("<p>Hello stranger.</p>");
-    //   response.getWriter().println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
-    // }
-    // oof+=" "+commentsFin;
     response.getWriter().println(commentsFin);
   }
   

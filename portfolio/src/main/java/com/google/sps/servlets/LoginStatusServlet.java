@@ -28,45 +28,33 @@ public class LoginStatusServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("application/json");
 
-    HashMap<String, String> ans = new HashMap<String, String> ();
+    HashMap<String, String> accountProperties = new HashMap<String, String> ();
 
     UserService userService = UserServiceFactory.getUserService();
 
-    String check = "true";
-    String login = "";
-    String logout = "";
+    String isLoggedIn = "true";
+    String loginURL = "";
+    String logoutURL = "";
     if (userService.isUserLoggedIn()) {
-      System.out.println("true");
-      check= "true";
+      isLoggedIn= "true";
 
       String userEmail = userService.getCurrentUser().getEmail();
       String urlToRedirectToAfterUserLogsOut = "/submitComments.html";
-      logout = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
-      logout = "Logout <a href=\"" + logout + "\">here</a>.";
-
+      logoutURL = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
+      logoutURL = "Logout <a href=\"" + logoutURL + "\">here</a>.";
     } else {
-      check = "false";
+      isLoggedIn = "false";
+
       String urlToRedirectToAfterUserLogsIn = "/submitComments.html";
-      String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
-      
-      login += "Login <a href=\"" + loginUrl + "\">here</a>.";
-      
-      System.out.println("false");
+      loginURL = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
+      loginURL += "Login <a href=\"" + loginURL + "\">here</a>.";
     }
-    ans.put("result", check);
-    ans.put("login", login);
-    ans.put("logout", logout);
+    accountProperties.put("checkLoggedIn", isLoggedIn);
+    accountProperties.put("loginURL", loginURL);
+    accountProperties.put("logoutURL", logoutURL);
 
     Gson gson = new Gson();
-    String json = gson.toJson(ans);
-
-    System.out.println(json);
+    String json = gson.toJson(accountProperties);
     response.getWriter().println(json);
-    
-  }
-  
-  @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String comment = request.getParameter("comment");
   }
 }
