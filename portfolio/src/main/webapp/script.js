@@ -75,8 +75,10 @@ function deleteComments() {
     fetch(new Request('/data', {method: 'POST'}))
   ).then(
       //make sure comments updates
-      getComments()
-  );
+      fetch('/delete-data').then(response => response.text()).then(listOfComments => {
+        document.getElementById('comments').innerText = listOfComments;
+      }
+    ));
 }
 
 function submitComments() {
