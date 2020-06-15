@@ -53,26 +53,26 @@ public class DataServlet extends HttpServlet {
     int maxNumComments;
     try {
       maxNumComments = Integer.parseInt(request.getParameter("max"));
-    } catch (NumberFormatException e) {
-      maxNumComments = 3;
-      System.err.println("Invalid Number, Use Default: 3");
-    }
-    String userEmail = "";
+      String userEmail = "";
 
-    UserService userService = UserServiceFactory.getUserService();
-    if (userService.isUserLoggedIn()) {
-      userEmail += userService.getCurrentUser().getEmail();
-    }
-
-    Collections.shuffle(comments);
-    int currNumComments = 0;
-    while (currNumComments < maxNumComments && currNumComments < comments.size()) {
-      if (comments.get(currNumComments) != null) {
-        commentsFin.add(userEmail+": " + comments.get(currNumComments));
+      UserService userService = UserServiceFactory.getUserService();
+      if (userService.isUserLoggedIn()) {
+        userEmail += userService.getCurrentUser().getEmail();
       }
-      currNumComments++;
+
+      Collections.shuffle(comments);
+      int currNumComments = 0;
+      while (currNumComments < maxNumComments && currNumComments < comments.size()) {
+        if (comments.get(currNumComments) != null) {
+          commentsFin.add(userEmail+": " + comments.get(currNumComments));
+        }
+        currNumComments++;
+      }
+      response.getWriter().println(commentsFin);
+      
+    } catch (NumberFormatException e) {
+      response.getWriter().println("Illegal number of comments. Try again.");
     }
-    response.getWriter().println(commentsFin);
   }
   
   @Override
