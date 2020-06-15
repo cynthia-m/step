@@ -3,7 +3,109 @@
   margin-right: auto;
   width: 650px;
 }
-
 #greeting-container {
   margin-top: 20px;
 }
+h1 {  
+  color: rgba(43, 141, 190, 1);
+  font-family: 'Proxima Nova Soft', 'Helvetica Neue', sans-serif;
+  text-shadow: 0 0 18px rgba(255, 255, 255, 1);
+  text-align: center;
+
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 200px;
+}
+p {
+  color: rgba(43, 142, 190, 1);
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  width: 400px;
+  padding: 10px;
+
+  background-color: rgba(255, 255, 255, 0.7); 
+}
+body {
+  background-color: rgba(255, 250, 240, 0.7);
+  background-image: url("images/bg2.JPG");
+  background-size: cover;
+}
+div {
+  color: rgba(43, 142, 190, 1);
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  width: 400px;
+  padding: 10px;
+  
+  background-color: rgba(255, 255, 255, 0.7); 
+}
+#start_button {
+  font-size: 30px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  
+  position: absolute;
+  margin-left: -50px;
+  margin-top: -50px;
+  left: 50%;
+  top: 50%;
+  
+  background-color: rgba(255, 255, 255, 1);
+}
+#prev {
+  font-size: 30px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+  position: absolute;
+  left: 30%;
+  top: 35%;
+
+  background-color: rgba(255, 255, 255, 1);
+}
+#next {
+  font-size: 30px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+  position: absolute;
+  right: 30%;
+  top: 35%;
+
+  background-color: rgba(255, 255, 255, 1);
+}
+.pics {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 400px;
+  height: auto;
+  padding: 5px;
+  
+  background-color: rgba(255, 255, 255, .7);
+}
+.hidden {
+  display: none;
+}
+.notHidden {
+  display: block;
+}
+.bgImage {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  max-height: 100%;
+  padding: 0;
+}
+.intro {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 5px;
+}
+

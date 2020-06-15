@@ -19,14 +19,72 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.google.gson.Gson;
+import java.util.ArrayList;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
+import java.util.Collections;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+
+/** Servlet that returns comments to user.*/
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("text/html;");
-    response.getWriter().println("<h1>Hello world!</h1>");
+    
+    ArrayList<String> commentsFin = new ArrayList<String> ();
+    ArrayList<String> comments = new ArrayList<String> ();
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+    Query query = new Query("Feedback");
+    PreparedQuery results = datastore.prepare(query);
+    for (Entity entity : results.asIterable()) {
+      comments.add((String) entity.getProperty("comment"));
+    }
+
+    int maxNumComments;
+    try {
+      maxNumComments = Integer.parseInt(request.getParameter("max"));
+      String userEmail = "";
+
+      UserService userService = UserServiceFactory.getUserService();
+      if (userService.isUserLoggedIn()) {
+        userEmail += userService.getCurrentUser().getEmail();
+      }
+
+      Collections.shuffle(comments);
+      int currNumComments = 0;
+      while (currNumComments < maxNumComments && currNumComments < comments.size()) {
+        if (comments.get(currNumComments) != null) {
+          commentsFin.add(userEmail+": " + comments.get(currNumComments));
+        }
+        currNumComments++;
+      }
+      response.getWriter().println(commentsFin);
+      
+    } catch (NumberFormatException e) {
+      response.getWriter().println("Illegal number of comments. Try again.");
+    }
+  }
+  
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String comment = request.getParameter("comment");
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+    Entity taskEntity = new Entity("Feedback");
+    taskEntity.setProperty("comment", comment);
+    datastore.put(taskEntity);
+    
+    response.sendRedirect("/comments.html");
   }
 }
