@@ -1,4 +1,3 @@
-
 // Copyright 2019 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,78 +23,80 @@ import java.util.HashSet;
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
 
-    Collection<String> attendees = request.getAttendees();
-    Collection<String> optAttendees = request.getOptionalAttendees();
-    int reqDuration = (int) request.getDuration();
-    Set<String> test2 = new HashSet<> ();
-    Set<String> setOptAttendees = new HashSet<> ();
-    setOptAttendees.addAll(optAttendees);
-    test2.addAll(attendees);
-    test2.addAll(optAttendees);
-    Collection<TimeRange> ans = new ArrayList<TimeRange> ();
-    Collection<TimeRange> eventsTR = new ArrayList<TimeRange> ();
+    Collection<String> requestAttendees = request.getAttendees();
+    Collection<String> requestOptionalAttendees = request.getOptionalAttendees();
+    int requestDuration = (int) request.getDuration();
+
+    Set<String> requestAttendeesSet = new HashSet<> ();
+    Set<String> requestOptionalAttendeesSet = new HashSet<> ();
+    requestOptionalAttendeesSet.addAll(requestOptionalAttendees);
+    requestAttendeesSet.addAll(requestAttendees);
+    requestAttendeesSet.addAll(requestOptionalAttendees);
+
+    Collection<TimeRange> availableTimeRanges = new ArrayList<TimeRange> ();
+    Collection<TimeRange> allEventsTimeRanges = new ArrayList<TimeRange> ();
+
     for (Iterator currEvent = events.iterator(); currEvent.hasNext(); ){ 
-        eventsTR.add((TimeRange) ((Event)currEvent.next()).getWhen());
+        allEventsTimeRanges.add((TimeRange) ((Event)currEvent.next()).getWhen());
     }
 
-    int start = 0;
-    int end = 0;
-    int i = 0;
-    TimeRange t = TimeRange.fromStartEnd(start, end, true);
-    while (start<=1439 && end<=1439) {
-      if(checkOverlapTime(t, eventsTR)){
-        if(start == end){
-          start++;
-          end++;
+    int startTime = 0;
+    int endTime = 0;
+    TimeRange tempTimeRange = TimeRange.fromStartEnd(startTime, endTime, true);
+    while (startTime<=1439 && endTime<=1439) {
+      if(checkOverlapMultipleTimeRanges(tempTimeRange, allEventsTimeRanges)){
+        if(startTime == endTime){
+          startTime++;
+          endTime++;
         }
         else{
-          if (checkOverlapAttendeesHelp(t, test2, events)) {
-            if(end-start>=reqDuration){
-              t = TimeRange.fromStartEnd(start, end-1, true);
-              ans.add(t);
+          if (checkOverlapMultipleAttendees(tempTimeRange, requestAttendeesSet, events)) {
+            if(endTime-startTime>=requestDuration){
+              tempTimeRange = TimeRange.fromStartEnd(startTime, endTime-1, true);
+              availableTimeRanges.add(tempTimeRange);
             }
-            start = end;
+            startTime = endTime;
           }
           else{
-            end++;
+            endTime++;
           }
         }
       }
       else{
-        end++;
+        endTime++;
       }
-      t = TimeRange.fromStartEnd(start, end, true);
+      tempTimeRange = TimeRange.fromStartEnd(startTime, endTime, true);
     }
     
-    if(end-start>reqDuration){
-      t = TimeRange.fromStartEnd(start, end-1, true);
-        ans.add(t);
+    if(endTime-startTime>requestDuration){
+      tempTimeRange = TimeRange.fromStartEnd(startTime, endTime-1, true);
+        availableTimeRanges.add(tempTimeRange);
     }
 
-    if(ans.size()==0 && optAttendees.size()!=0 && attendees.size()!=0){
-      MeetingRequest req = new MeetingRequest(attendees, reqDuration);
-      Collection<Event> ev = new ArrayList<>();
+    if(availableTimeRanges.size()==0 && requestOptionalAttendees.size()!=0 && requestAttendees.size()!=0){
+      MeetingRequest requestWithoutOptionals = new MeetingRequest(requestAttendees, requestDuration);
+      Collection<Event> eventsWithoutOptionalEvents = new ArrayList<>();
       for (Iterator currEvent = events.iterator(); currEvent.hasNext(); ){ 
-        Event e = (Event)currEvent.next();
-        if(!checkOverlapAttendees(setOptAttendees, e.getAttendees())){
-          ev.add(e);
+        Event tempEvent = (Event)currEvent.next();
+        if(!checkOverlapAttendees(requestOptionalAttendeesSet, tempEvent.getAttendees())){
+          eventsWithoutOptionalEvents.add(tempEvent);
         }
       }
-      return query(ev, req);
+      return query(eventsWithoutOptionalEvents, requestWithoutOptionals);
     }
 
     else{
-      return ans;
+      return availableTimeRanges;
     }
     
 
   }
   //checks if a timerange overlaps any of the time ranges
-  public boolean checkOverlapTime(TimeRange t1, Collection <TimeRange> t2){
+  public boolean checkOverlapMultipleTimeRanges(TimeRange singleTimeRange, Collection <TimeRange> timeRanges){
 
-    for (Iterator currEvent = t2.iterator(); currEvent.hasNext(); ){ 
-      TimeRange t = (TimeRange) currEvent.next();
-      if(t1.overlaps(t)){
+    for (Iterator currTimeRange = timeRanges.iterator(); currTimeRange.hasNext(); ){ 
+      TimeRange tempTimeRange = (TimeRange) currTimeRange.next();
+      if(singleTimeRange.overlaps(tempTimeRange)){
         return true;
       }
     }
@@ -103,21 +104,21 @@ public final class FindMeetingQuery {
 
   }
 
-  public boolean checkOverlapAttendeesHelp(TimeRange t, Set<String> a1, Collection<Event> events){
-    Event e;
+  public boolean checkOverlapMultipleAttendees(TimeRange timeRange, Set<String> attendees, Collection<Event> events){
+    Event tempEvent;
     for (Iterator currEvent = events.iterator(); currEvent.hasNext(); ){ 
-      e = (Event) currEvent.next();
-      if(t.overlaps(e.getWhen()) && checkOverlapAttendees(a1, e.getAttendees())){
+      tempEvent = (Event) currEvent.next();
+      if(timeRange.overlaps(tempEvent.getWhen()) && checkOverlapAttendees(attendees, tempEvent.getAttendees())){
         return true;
       }
     }
     return false;
   }
 
-  public boolean checkOverlapAttendees(Set<String> a1, Set<String> a2){
-     for(String e1 : a1){
-        for(String e2 : a2){
-          if(e1.equals(e2)){
+  public boolean checkOverlapAttendees(Set<String> attendees1, Set<String> attendees2){
+     for(String attendeeFrom1 : attendees1){
+        for(String attendeeFrom2 : attendees2){
+          if(attendeeFrom1.equals(attendeeFrom2)){
             return true;
           }
         }
