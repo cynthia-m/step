@@ -25,9 +25,13 @@ public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
 
     Collection<String> attendees = request.getAttendees();
+    Collection<String> optAttendees = request.getOptionalAttendees();
     int reqDuration = (int) request.getDuration();
     Set<String> test2 = new HashSet<> ();
+    Set<String> setOptAttendees = new HashSet<> ();
+    setOptAttendees.addAll(optAttendees);
     test2.addAll(attendees);
+    test2.addAll(optAttendees);
     Collection<TimeRange> ans = new ArrayList<TimeRange> ();
     Collection<TimeRange> eventsTR = new ArrayList<TimeRange> ();
     for (Iterator currEvent = events.iterator(); currEvent.hasNext(); ){ 
@@ -67,7 +71,23 @@ public final class FindMeetingQuery {
       t = TimeRange.fromStartEnd(start, end-1, true);
         ans.add(t);
     }
-    return ans;
+
+    if(ans.size()==0 && optAttendees.size()!=0 && attendees.size()!=0){
+      MeetingRequest req = new MeetingRequest(attendees, reqDuration);
+      Collection<Event> ev = new ArrayList<>();
+      for (Iterator currEvent = events.iterator(); currEvent.hasNext(); ){ 
+        Event e = (Event)currEvent.next();
+        if(!checkOverlapAttendees(setOptAttendees, e.getAttendees())){
+          ev.add(e);
+        }
+      }
+      return query(ev, req);
+    }
+
+    else{
+      return ans;
+    }
+    
 
   }
   //checks if a timerange overlaps any of the time ranges
