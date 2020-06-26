@@ -275,7 +275,7 @@ public final class FindMeetingQueryTest {
 
 
   @Test
-  public void optionalAttendeeHasAllDayEvent() {
+  public void optionalAttendeeHasAllDayEvent_IgnoreOptionalAttendee() {
     // The optiona attendee has an all-day event so they are excluded from consideration.
     //
     // Events  : |-------------(C)-------------|      
@@ -304,7 +304,7 @@ public final class FindMeetingQueryTest {
     Assert.assertEquals(expected, actual);
   }
   @Test
-  public void optionalAttendeeHas30MinEvent() {
+  public void optionalAttendeeHas30MinEvent_TryToFitOptionalAttendee() {
     // Two attendees and one optional attendee. We should still have an available time slot
     // despite the optional attendee having a 30 min event
     //
@@ -361,7 +361,7 @@ public final class FindMeetingQueryTest {
 
 
   @Test
-  public void optionalsHaveOption() {
+  public void onlyOptionalAttendees_HaveRoomForMeeting() {
     // Have two optional attendees, but make it so that there is just enough room at one point in the day to
     // have the meeting.
     //
@@ -387,7 +387,7 @@ public final class FindMeetingQueryTest {
   }
 
   @Test
-  public void optionalsHaveNoOption() {
+  public void onlyOptionalAttendees_HaveNoRoomForMeeting() {
     // Have two optional attendees, but make it so that there is no time during the day to
     // have the meeting.
     //
