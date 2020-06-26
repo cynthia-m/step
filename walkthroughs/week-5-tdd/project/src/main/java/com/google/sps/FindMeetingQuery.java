@@ -15,9 +15,111 @@
 package com.google.sps;
 
 import java.util.Collection;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.HashSet;
 
 public final class FindMeetingQuery {
+
+  final static int endOfDayTimeInMinutes = 1439; 
+
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    throw new UnsupportedOperationException("TODO: Implement this method.");
+
+    Collection<TimeRange> availableTimeRanges = new ArrayList<TimeRange> ();
+
+    Collection<String> requestAttendees = request.getAttendees();
+    Collection<String> requestOptionalAttendees = request.getOptionalAttendees();
+    Set<String> requestAttendeesSet = new HashSet<> ();
+    Set<String> requestOptionalAttendeesSet = new HashSet<> ();
+    requestOptionalAttendeesSet.addAll(requestOptionalAttendees);
+    requestAttendeesSet.addAll(requestAttendees);
+    requestAttendeesSet.addAll(requestOptionalAttendees);
+    int requestDuration = (int) request.getDuration();
+    
+    Collection<TimeRange> allEventsTimeRanges = new ArrayList<TimeRange> ();
+    for (Event event : events){ 
+      allEventsTimeRanges.add(event.getWhen());
+    }
+
+    int startTime = 0;
+    int endTime = 0;
+    boolean includeEndTime = true;
+    TimeRange tempTimeRange = TimeRange.fromStartEnd(startTime, endTime, includeEndTime/* = true*/);
+    while (startTime <= endOfDayTimeInMinutes && endTime <= endOfDayTimeInMinutes) {
+      if (checkOverlapMultipleTimeRanges(tempTimeRange, allEventsTimeRanges)) {
+        //don't add if the start=end but the timerange overlaps
+        //timerange has duration zero and should just be updated
+        if (startTime == endTime) {
+          startTime++;
+          endTime++;
+        } else {
+          //want to add if the attendees overlap and the duration is long enough
+          if (checkOverlapMultipleAttendees(tempTimeRange, requestAttendeesSet, events)) {
+            if (endTime - startTime >= requestDuration ) {
+              tempTimeRange = TimeRange.fromStartEnd(startTime, endTime-1, includeEndTime/* = true*/);
+              availableTimeRanges.add(tempTimeRange);
+            }
+            startTime = endTime;
+          } else {
+            endTime++;
+          }
+        }
+      } else {
+        endTime++;
+      }
+      tempTimeRange = TimeRange.fromStartEnd(startTime, endTime, includeEndTime/* = true*/);
+    }
+    
+    if (endTime - startTime > requestDuration) {
+      tempTimeRange = TimeRange.fromStartEnd(startTime, endTime-1, includeEndTime/* = true*/);
+      availableTimeRanges.add(tempTimeRange);
+    }
+    //if the optional attendees cause there to be no available timeranges
+    //remove the optional attendees and optional events
+    if (availableTimeRanges.size() == 0 && requestOptionalAttendees.size() != 0 && requestAttendees.size() != 0) {
+      MeetingRequest requestWithoutOptionals = new MeetingRequest(requestAttendees, requestDuration);
+      Collection<Event> eventsWithoutOptionalEvents = new ArrayList<> ();
+      for (Event event : events) { 
+        if (!checkOverlapAttendees(requestOptionalAttendeesSet, event.getAttendees())) {
+          eventsWithoutOptionalEvents.add(event);
+        }
+      }
+      return query(eventsWithoutOptionalEvents, requestWithoutOptionals);
+    } else {
+      return availableTimeRanges;
+    }
+  }
+
+  //checks if a TimeRange overlaps any of the TimeRanges in a collection
+  public boolean checkOverlapMultipleTimeRanges(TimeRange singleTimeRange, Collection <TimeRange> timeRanges) {
+    for (TimeRange timeRange : timeRanges ) { 
+      if (singleTimeRange.overlaps(timeRange)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  //checks if a set of attendees overlaps any of the attendees in the Events of an overlapping TimeRange
+  public boolean checkOverlapMultipleAttendees(TimeRange timeRange, Set<String> attendees, Collection<Event> events) {
+    for (Event event : events) { 
+      if (timeRange.overlaps(event.getWhen()) && checkOverlapAttendees(attendees, event.getAttendees())) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  //checks if two sets of attendees overlaps
+  public boolean checkOverlapAttendees(Set<String> attendees1, Set<String> attendees2) {
+     for (String attendeeFrom1 : attendees1) {
+        for (String attendeeFrom2 : attendees2) {
+          if (attendeeFrom1.equals(attendeeFrom2)) {
+            return true;
+          }
+        }
+     }
+    return false;
   }
 }
