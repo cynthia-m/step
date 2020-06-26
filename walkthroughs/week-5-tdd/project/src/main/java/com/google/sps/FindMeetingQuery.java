@@ -35,8 +35,8 @@ public final class FindMeetingQuery {
     int requestDuration = (int) request.getDuration();
     
     Collection<TimeRange> allEventsTimeRanges = new ArrayList<TimeRange> ();
-    for (Iterator currEvent = events.iterator(); currEvent.hasNext(); ){ 
-      allEventsTimeRanges.add((TimeRange) ((Event) currEvent.next()).getWhen());
+    for (Event event : events){ 
+      allEventsTimeRanges.add(event.getWhen());
     }
 
     int startTime = 0;
@@ -76,10 +76,9 @@ public final class FindMeetingQuery {
     if (availableTimeRanges.size() == 0 && requestOptionalAttendees.size() != 0 && requestAttendees.size() != 0) {
       MeetingRequest requestWithoutOptionals = new MeetingRequest(requestAttendees, requestDuration);
       Collection<Event> eventsWithoutOptionalEvents = new ArrayList<> ();
-      for (Iterator currEvent = events.iterator(); currEvent.hasNext(); ) { 
-        Event tempEvent = (Event)currEvent.next();
-        if (!checkOverlapAttendees(requestOptionalAttendeesSet, tempEvent.getAttendees())) {
-          eventsWithoutOptionalEvents.add(tempEvent);
+      for (Event event : events) { 
+        if (!checkOverlapAttendees(requestOptionalAttendeesSet, event.getAttendees())) {
+          eventsWithoutOptionalEvents.add(event);
         }
       }
       return query(eventsWithoutOptionalEvents, requestWithoutOptionals);
@@ -90,9 +89,8 @@ public final class FindMeetingQuery {
 
   //checks if a TimeRange overlaps any of the TimeRanges in a collection
   public boolean checkOverlapMultipleTimeRanges(TimeRange singleTimeRange, Collection <TimeRange> timeRanges) {
-    for (Iterator currTimeRange = timeRanges.iterator(); currTimeRange.hasNext(); ) { 
-      TimeRange tempTimeRange = (TimeRange) currTimeRange.next();
-      if (singleTimeRange.overlaps(tempTimeRange)) {
+    for (TimeRange timeRange : timeRanges ) { 
+      if (singleTimeRange.overlaps(timeRange)) {
         return true;
       }
     }
@@ -101,10 +99,8 @@ public final class FindMeetingQuery {
 
   //checks if a set of attendees overlaps any of the attendees in the Events of an overlapping TimeRange
   public boolean checkOverlapMultipleAttendees(TimeRange timeRange, Set<String> attendees, Collection<Event> events) {
-    Event tempEvent;
-    for (Iterator currEvent = events.iterator(); currEvent.hasNext(); ) { 
-      tempEvent = (Event) currEvent.next();
-      if (timeRange.overlaps(tempEvent.getWhen()) && checkOverlapAttendees(attendees, tempEvent.getAttendees())) {
+    for (Event event : events) { 
+      if (timeRange.overlaps(event.getWhen()) && checkOverlapAttendees(attendees, event.getAttendees())) {
         return true;
       }
     }
