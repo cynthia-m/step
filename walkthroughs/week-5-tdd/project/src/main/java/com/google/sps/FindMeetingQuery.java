@@ -21,6 +21,9 @@ import java.util.Set;
 import java.util.HashSet;
 
 public final class FindMeetingQuery {
+
+  final static int endOfDayTimeInMinutes = 1439; 
+
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
 
     Collection<TimeRange> availableTimeRanges = new ArrayList<TimeRange> ();
@@ -41,8 +44,9 @@ public final class FindMeetingQuery {
 
     int startTime = 0;
     int endTime = 0;
-    TimeRange tempTimeRange = TimeRange.fromStartEnd(startTime, endTime, true);
-    while (startTime <= 1439 && endTime <= 1439) {
+    boolean includeEndTime = true;
+    TimeRange tempTimeRange = TimeRange.fromStartEnd(startTime, endTime, includeEndTime/* = true*/);
+    while (startTime <= endOfDayTimeInMinutes && endTime <= endOfDayTimeInMinutes) {
       if (checkOverlapMultipleTimeRanges(tempTimeRange, allEventsTimeRanges)) {
         //don't add if the start=end but the timerange overlaps
         //timerange has duration zero and should just be updated
@@ -53,7 +57,7 @@ public final class FindMeetingQuery {
           //want to add if the attendees overlap and the duration is long enough
           if (checkOverlapMultipleAttendees(tempTimeRange, requestAttendeesSet, events)) {
             if (endTime - startTime >= requestDuration ) {
-              tempTimeRange = TimeRange.fromStartEnd(startTime, endTime-1, true);
+              tempTimeRange = TimeRange.fromStartEnd(startTime, endTime-1, includeEndTime/* = true*/);
               availableTimeRanges.add(tempTimeRange);
             }
             startTime = endTime;
@@ -64,11 +68,11 @@ public final class FindMeetingQuery {
       } else {
         endTime++;
       }
-      tempTimeRange = TimeRange.fromStartEnd(startTime, endTime, true);
+      tempTimeRange = TimeRange.fromStartEnd(startTime, endTime, includeEndTime/* = true*/);
     }
     
     if (endTime - startTime > requestDuration) {
-      tempTimeRange = TimeRange.fromStartEnd(startTime, endTime-1, true);
+      tempTimeRange = TimeRange.fromStartEnd(startTime, endTime-1, includeEndTime/* = true*/);
       availableTimeRanges.add(tempTimeRange);
     }
     //if the optional attendees cause there to be no available timeranges
